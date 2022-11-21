@@ -10,6 +10,8 @@ class CustomButtonWithFreeColor extends StatelessWidget {
   final Function()? onTap;
   final double? radius;
   final double? fontSizel;
+  final double? widthrectang;
+  final Color? colorRectang;
 
   const CustomButtonWithFreeColor(
       {super.key,
@@ -21,7 +23,9 @@ class CustomButtonWithFreeColor extends StatelessWidget {
       this.disColor,
       this.radius,
       this.textColor,
-      this.fontSizel});
+      this.fontSizel,
+      this.colorRectang,
+      this.widthrectang});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,8 @@ class CustomButtonWithFreeColor extends StatelessWidget {
               backgroundColor: color,
               disabledBackgroundColor: disColor,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(radius!))),
+                  borderRadius: BorderRadius.circular(radius!),
+                  side: BorderSide(color: colorRectang!, width: widthrectang!))),
           child: Text(
             title!,
             style: TextStyle(fontSize: fontSizel, color: textColor),
