@@ -52,8 +52,8 @@ class _WellScreenState extends State<WellScreen> {
               child: Text(
                 'WELCOME',
                 style: TextStyle(
-                    fontSize: context.scaleFont(29),
-                    fontWeight: FontWeight.bold),
+                    fontSize: context.deviceHeight(0.04027),
+                    fontWeight: FontWeight.w800),
               )),
 
           Positioned(
@@ -83,7 +83,7 @@ class _WellScreenState extends State<WellScreen> {
                     ),
                     child: Row(
                       children: [
-                        SizedBox(width: context.deviceWidth(0.038)),
+                        SizedBox(width: context.deviceWidth(0.058)),
                         CustomButtonWithFreeColor(
                           widthrectang: 3.0,
                           colorRectang: Colors.black,
@@ -91,23 +91,25 @@ class _WellScreenState extends State<WellScreen> {
                           buttonWidth: context.deviceWidth(0.35),
                           radius: context.deviceHeight(0.4),
                           title: 'SIGN UP',
+                          fontSizel: context.scaleFont(19),
                           color: MarkonBlue,
                           textColor: Colors.black,
                           onTap: () {},
                         ),
-                        SizedBox(width: context.deviceWidth(0.038)),
+                        SizedBox(width: context.deviceWidth(0.10)),
                         CustomButtonWithFreeColor(
                           widthrectang: 3.0,
                           colorRectang: Colors.black,
                           buttonHeight: context.deviceHeight(0.08),
                           buttonWidth: context.deviceWidth(0.35),
                           radius: context.deviceHeight(0.4),
+                          fontSizel: context.scaleFont(19),
                           title: 'SIGN IN',
                           color: Colors.black,
                           textColor: Colors.white,
                           onTap: () {},
                         ),
-                        SizedBox(width: context.deviceWidth(0.038)),
+                        SizedBox(width: context.deviceWidth(0.058)),
                       ],
                     ),
                   ),
