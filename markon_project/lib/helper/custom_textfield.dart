@@ -14,6 +14,7 @@ class CustomFormTextField extends StatelessWidget {
   final FocusNode? focusNode;
   final bool? readOnly, enabled;
   final int? maxLine, maxLength;
+  final bool? obsecure;
 
   const CustomFormTextField(
       {Key? key,
@@ -32,6 +33,7 @@ class CustomFormTextField extends StatelessWidget {
       this.enabled,
       this.maxLine,
       this.maxLength,
+      this.obsecure,
       this.formatter})
       : super(key: key);
 
@@ -47,19 +49,20 @@ class CustomFormTextField extends StatelessWidget {
       focusNode: this.focusNode,
       keyboardType: this.inputType,
       maxLines: this.maxLine,
+      obscureText: this.obsecure ?? false,
       textInputAction: this.inputAction,
       onFieldSubmitted: this.onAction,
       onTap: this.onTap,
-      style: TextStyle(color: TrustPostMainText, fontSize: 14),
+      style: TextStyle(color: Colors.grey, fontSize: 12, height: 0.5),
       decoration: InputDecoration(
         suffixIcon: this.suffixIcon,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         enabled: this.enabled ?? true,
         labelText: this.label,
         hintText: this.hint,
-        hintStyle: TextStyle(fontSize: 14, color: Colors.black),
+        hintStyle: TextStyle(fontSize: 10, color: Colors.grey),
         labelStyle: TextStyle(
-          fontSize: 14,
+          fontSize: 10,
           color: TrustPostMainText,
         ),
         filled: true,
