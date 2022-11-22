@@ -88,7 +88,18 @@ class Content_Welcome_Screen extends StatelessWidget {
                       fontSizel: context.scaleFont(19),
                       color: MarkonBlue,
                       textColor: Colors.black,
-                      onTap: () {},
+                      onTap: () {
+                        showModalBottomSheet(
+                            context: context,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30),
+                            )),
+                            builder: (BuildContext context) {
+                              return SignUpBottomSheet();
+                            });
+                      },
                     ),
                     SizedBox(width: context.deviceWidth(0.10)),
                     CustomButtonWithFreeColor(
@@ -191,5 +202,105 @@ class Content_Welcome_Screen extends StatelessWidget {
             ],
           )),
     ]);
+  }
+}
+
+class SignUpBottomSheet extends StatelessWidget {
+  const SignUpBottomSheet({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(
+          left: context.deviceWidth(0.028),
+          right: context.deviceWidth(0.028),
+          top: context.deviceHeight(0.01)),
+      height: context.deviceHeight(1),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                GestureDetector(
+                  child: Icon(Icons.arrow_back),
+                  onTap: (() {
+                    Navigator.pop(context);
+                  }),
+                ),
+                Text('BACK')
+              ],
+            ),
+            SizedBox(
+              height: context.deviceHeight(0.023125),
+            ),
+            SizedBox(
+              height: 48,
+              width: 320,
+              child: CustomFormTextField(
+                hint: 'FULL NAME',
+              ),
+            ),
+            SizedBox(
+              height: context.deviceHeight(0.0125),
+            ),
+            CustomFormTextField(
+              hint: 'USERNAME',
+            ),
+            SizedBox(
+              height: context.deviceHeight(0.0125),
+            ),
+            CustomFormTextField(
+              hint: 'EMAIL',
+            ),
+            SizedBox(
+              height: context.deviceHeight(0.0125),
+            ),
+            CustomFormTextField(
+              hint: 'PASSWORD',
+            ),
+            SizedBox(
+              height: context.deviceHeight(0.0125),
+            ),
+            CustomFormTextField(
+              hint: 'RETYPE PASSWORD',
+            ),
+            SizedBox(
+              height: context.deviceHeight(0.0125),
+            ),
+            CustomFormTextField(
+              hint: 'PHONE NUMBER',
+            ),
+            SizedBox(
+              height: context.deviceHeight(0.0125),
+            ),
+            SizedBox(height: context.deviceHeight(0.0225)),
+            Center(
+              child: Column(
+                children: [
+                  CustomButtonWithFreeColor(
+                    widthrectang: 2.0,
+                    colorRectang: Colors.grey,
+                    buttonHeight: context.deviceHeight(0.05),
+                    buttonWidth: context.deviceWidth(0.25),
+                    radius: context.deviceHeight(0.4),
+                    title: 'SUBMIT',
+                    fontSizel: context.scaleFont(14),
+                    color: Colors.white,
+                    textColor: Colors.grey,
+                    onTap: () {},
+                  ),
+                  SizedBox(height: context.deviceHeight(0.02)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
