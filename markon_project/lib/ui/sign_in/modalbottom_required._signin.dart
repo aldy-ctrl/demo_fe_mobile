@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:markon_project/helper/custom_textfield.dart';
 import 'package:markon_project/helper/extensions.dart';
 import 'package:markon_project/shared_widgets/custom_button.dart';
+import 'package:markon_project/ui/home/home_ui.dart';
 
 class ModContain extends StatefulWidget {
-  const ModContain({super.key});
+  final String? mode;
+  const ModContain({super.key, this.mode});
 
   @override
   State<ModContain> createState() => _ModContainState();
@@ -14,6 +16,7 @@ class _ModContainState extends State<ModContain> {
   TextEditingController usernameCo = TextEditingController();
   TextEditingController passwordCo = TextEditingController();
   bool obsecure = true;
+  int count = 2;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,7 +37,9 @@ class _ModContainState extends State<ModContain> {
                 GestureDetector(
                   child: Icon(Icons.arrow_back),
                   onTap: (() {
-                    Navigator.pop(context);
+                    widget.mode == 'SIGNIN'
+                        ? Navigator.pop(context)
+                        : Navigator.of(context).popUntil((_) => count-- <= 0);
                   }),
                 ),
                 Text(
@@ -60,40 +65,48 @@ class _ModContainState extends State<ModContain> {
             SizedBox(
               height: context.deviceHeight(0.0125),
             ),
-            SizedBox(
-              height: context.deviceHeight(0.06375),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  suffixIcon: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        obsecure = !obsecure;
-                      });
-                    },
-                    child: Icon(
-                      obsecure ? Icons.visibility_off : Icons.visibility,
-                      color: Colors.grey,
+            Visibility(
+              visible: widget.mode == 'SIGNIN',
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: context.deviceHeight(0.06375),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              obsecure = !obsecure;
+                            });
+                          },
+                          child: Icon(
+                            obsecure ? Icons.visibility_off : Icons.visibility,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        hintText: 'Password',
+                        hintStyle: TextStyle(color: Colors.grey),
+                        filled: true,
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular((48)),
+                            borderSide: BorderSide(color: Colors.black38)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular((48)),
+                            borderSide: BorderSide(color: Colors.black38)),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                          borderRadius: BorderRadius.circular(48),
+                        ),
+                      ),
+                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                      obscureText: obsecure,
+                      controller: passwordCo,
+                      validator: (value) =>
+                          (value!.isEmpty) ? "Silahkan isi password" : null,
                     ),
                   ),
-                  hintText: 'Password',
-                  hintStyle: TextStyle(color: Colors.grey),
-                  filled: true,
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular((48)),
-                      borderSide: BorderSide(color: Colors.black38)),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular((48)),
-                      borderSide: BorderSide(color: Colors.black38)),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                    borderRadius: BorderRadius.circular(48),
-                  ),
-                ),
-                style: TextStyle(color: Colors.grey, fontSize: 12),
-                obscureText: obsecure,
-                controller: passwordCo,
-                validator: (value) =>
-                    (value!.isEmpty) ? "Silahkan isi password" : null,
+                  //SizedBox(height: context.deviceHeight(0.058)),
+                ],
               ),
             ),
             SizedBox(height: context.deviceHeight(0.058)),
@@ -106,21 +119,49 @@ class _ModContainState extends State<ModContain> {
                     buttonHeight: context.deviceHeight(0.05875),
                     buttonWidth: context.deviceWidth(0.2777777777777778),
                     radius: 48,
-                    title: 'SIGN IN',
+                    title: widget.mode == 'SIGNIN' ? 'SIGN IN' : 'SUBMIT',
                     fontSizel: context.scaleFont(14),
                     color: Colors.white,
                     textColor: Colors.grey,
-                    onTap: () {},
+                    onTap: () {
+                      widget.mode == 'SIGNIN'
+                          ? Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => HomeUI()))
+                          : null;
+                    },
                   ),
-                  SizedBox(
-                    height: context.deviceHeight(0.0175),
-                  ),
-                  GestureDetector(
-                      child: Text(
-                        'FORGOT PASSWORD ?',
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                      onTap: () {})
+                  widget.mode == 'SIGNIN'
+                      ? SizedBox(
+                          height: context.deviceHeight(0.0175),
+                        )
+                      : SizedBox(
+                          height: context.deviceHeight(0.0275),
+                        ),
+                  Visibility(
+                    visible: widget.mode == 'SIGNIN',
+                    child: Column(
+                      children: [
+                        GestureDetector(
+                            child: Text(
+                              'FORGOT PASSWORD ?',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            onTap: () {
+                              showModalBottomSheet(
+                                context: context,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(30),
+                                  topRight: Radius.circular(30),
+                                )),
+                                builder: (BuildContext context) {
+                                  return ModContain(mode: 'FORGOT');
+                                },
+                              );
+                            }),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),

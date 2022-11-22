@@ -90,7 +90,7 @@ class Content_Welcome_Screen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(
                   right: context.deviceWidth(0.01805555555555556),
-                  left: context.deviceWidth(0.01805555555555556),
+                  left: context.deviceWidth(0.02105555555555556),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -138,12 +138,12 @@ class Content_Welcome_Screen extends StatelessWidget {
                             topRight: Radius.circular(30),
                           )),
                           builder: (BuildContext context) {
-                            return ModContain();
+                            return ModContain(mode: 'SIGNIN');
                           },
                         );
                       },
                     ),
-                    SizedBox(width: context.deviceWidth(0.058)),
+                    //SizedBox(width: context.deviceWidth(0.058)),
                   ],
                 ),
               ),
