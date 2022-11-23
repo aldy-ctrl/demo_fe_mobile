@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:markon_project/helper/custom_textfield.dart';
 import 'package:markon_project/helper/extensions.dart';
 import 'package:markon_project/shared_widgets/custom_button.dart';
@@ -131,6 +132,7 @@ class Content_Welcome_Screen extends StatelessWidget {
                       textColor: Colors.white,
                       onTap: () {
                         showModalBottomSheet(
+                          enableDrag: true,
                           context: context,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
@@ -165,6 +167,7 @@ class SignUpBottomSheet extends StatefulWidget {
 class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
   TextEditingController emailCo = TextEditingController();
   TextEditingController usernameCo = TextEditingController();
+  TextEditingController phoneCo = TextEditingController();
   final key = GlobalKey<FormState>();
 
   @override
@@ -187,9 +190,9 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
       key: key,
       child: Container(
         padding: EdgeInsets.only(
-            left: context.deviceWidth(0.028),
-            right: context.deviceWidth(0.028),
-            top: context.deviceHeight(0.01)),
+            left: context.deviceWidth(0.0555555555555556),
+            right: context.deviceWidth(0.0555555555555556),
+            top: context.deviceHeight(0.02)),
         height: context.deviceHeight(1),
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
@@ -213,7 +216,7 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
                 height: context.deviceHeight(0.023125),
               ),
               CustomFormTextField(
-                hint: '${context.deviceHeight(0.054545454)}',
+                hint: 'FULL NAME',
               ),
               SizedBox(
                 height: context.deviceHeight(0.0125),
@@ -249,6 +252,15 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
               ),
               CustomFormTextField(
                 hint: 'PHONE NUMBER',
+                controller: phoneCo,
+                formatter: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+                maxLength: 12,
+                inputType: TextInputType.text,
+                inputAction: TextInputAction.next,
+                validator: (value) =>
+                    value!.isEmpty ? 'Fill ur phone number' : null,
               ),
               SizedBox(
                 height: context.deviceHeight(0.0125),
