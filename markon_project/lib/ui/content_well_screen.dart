@@ -153,101 +153,132 @@ class Content_Welcome_Screen extends StatelessWidget {
   }
 }
 
-class SignUpBottomSheet extends StatelessWidget {
+class SignUpBottomSheet extends StatefulWidget {
   const SignUpBottomSheet({
     super.key,
   });
 
   @override
+  State<SignUpBottomSheet> createState() => _SignUpBottomSheetState();
+}
+
+class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
+  TextEditingController emailCo = TextEditingController();
+  TextEditingController usernameCo = TextEditingController();
+  final key = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  bool isEmail(String em) {
+    String p =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+
+    RegExp regExp = new RegExp(p);
+
+    return regExp.hasMatch(em);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(
-          left: context.deviceWidth(0.028),
-          right: context.deviceWidth(0.028),
-          top: context.deviceHeight(0.01)),
-      height: context.deviceHeight(1),
-      child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                GestureDetector(
-                  child: Icon(Icons.arrow_back),
-                  onTap: (() {
-                    Navigator.pop(context);
-                  }),
-                ),
-                Text('BACK')
-              ],
-            ),
-            SizedBox(
-              height: context.deviceHeight(0.023125),
-            ),
-            SizedBox(
-              height: 48,
-              width: 320,
-              child: CustomFormTextField(
-                hint: '${context.deviceHeight(0.054545454)}',
-              ),
-            ),
-            SizedBox(
-              height: context.deviceHeight(0.0125),
-            ),
-            CustomFormTextField(
-              hint: 'USERNAME',
-            ),
-            SizedBox(
-              height: context.deviceHeight(0.0125),
-            ),
-            CustomFormTextField(
-              hint: 'EMAIL',
-            ),
-            SizedBox(
-              height: context.deviceHeight(0.0125),
-            ),
-            CustomFormTextField(
-              hint: 'PASSWORD',
-            ),
-            SizedBox(
-              height: context.deviceHeight(0.0125),
-            ),
-            CustomFormTextField(
-              hint: 'RETYPE PASSWORD',
-            ),
-            SizedBox(
-              height: context.deviceHeight(0.0125),
-            ),
-            CustomFormTextField(
-              hint: 'PHONE NUMBER',
-            ),
-            SizedBox(
-              height: context.deviceHeight(0.0125),
-            ),
-            SizedBox(height: context.deviceHeight(0.0225)),
-            Center(
-              child: Column(
+    return Form(
+      key: key,
+      child: Container(
+        padding: EdgeInsets.only(
+            left: context.deviceWidth(0.028),
+            right: context.deviceWidth(0.028),
+            top: context.deviceHeight(0.01)),
+        height: context.deviceHeight(1),
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
                 children: [
-                  CustomButtonWithFreeColor(
-                    widthrectang: 2.0,
-                    colorRectang: Colors.grey,
-                    buttonHeight: context.deviceHeight(0.05),
-                    buttonWidth: context.deviceWidth(0.25),
-                    radius: context.deviceHeight(0.4),
-                    title: 'SUBMIT',
-                    fontSizel: context.scaleFont(14),
-                    color: Colors.white,
-                    textColor: Colors.grey,
-                    onTap: () {},
+                  GestureDetector(
+                    child: Icon(Icons.arrow_back),
+                    onTap: (() {
+                      Navigator.pop(context);
+                    }),
                   ),
-                  SizedBox(height: context.deviceHeight(0.02)),
+                  Text('BACK')
                 ],
               ),
-            ),
-          ],
+              SizedBox(
+                height: context.deviceHeight(0.023125),
+              ),
+              CustomFormTextField(
+                hint: '${context.deviceHeight(0.054545454)}',
+              ),
+              SizedBox(
+                height: context.deviceHeight(0.0125),
+              ),
+              CustomFormTextField(
+                hint: 'USERNAME',
+              ),
+              SizedBox(
+                height: context.deviceHeight(0.0125),
+              ),
+              CustomFormTextField(
+                  hint: 'EMAIL',
+                  controller: emailCo,
+                  maxLength: 30,
+                  inputType: TextInputType.emailAddress,
+                  validator: (value) => isEmail(value!)
+                      ? null
+                      : 'Check ur email (must filled and must contain @)'),
+              SizedBox(
+                height: context.deviceHeight(0.0125),
+              ),
+              CustomFormTextField(
+                hint: 'PASSWORD',
+              ),
+              SizedBox(
+                height: context.deviceHeight(0.0125),
+              ),
+              CustomFormTextField(
+                hint: 'RETYPE PASSWORD',
+              ),
+              SizedBox(
+                height: context.deviceHeight(0.0125),
+              ),
+              CustomFormTextField(
+                hint: 'PHONE NUMBER',
+              ),
+              SizedBox(
+                height: context.deviceHeight(0.0125),
+              ),
+              SizedBox(height: context.deviceHeight(0.0225)),
+              Center(
+                child: Column(
+                  children: [
+                    CustomButtonWithFreeColor(
+                      widthrectang: 2.0,
+                      colorRectang: Colors.grey,
+                      buttonHeight: context.deviceHeight(0.05),
+                      buttonWidth: context.deviceWidth(0.25),
+                      radius: context.deviceHeight(0.4),
+                      title: 'SUBMIT',
+                      fontSizel: context.scaleFont(14),
+                      color: Colors.white,
+                      textColor: Colors.grey,
+                      onTap: () {
+                        if (key.currentState!.validate()) {
+                          print('Done');
+                        }
+                      },
+                    ),
+                    SizedBox(height: context.deviceHeight(0.02)),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
