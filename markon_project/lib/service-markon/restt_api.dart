@@ -5,6 +5,7 @@ import 'package:markon_project/helper/constant.dart';
 import 'package:markon_project/helper/shared_pref.dart';
 import 'package:markon_project/model/login_model.dart';
 import 'package:markon_project/model/login_response_model.dart';
+import 'package:markon_project/model/signup_model.dart';
 import 'package:markon_project/service-markon/net_util.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -190,6 +191,25 @@ class RestApi {
     var res = await request.send();
 
     return res;
+  }
+
+  Future<SignUpResponseHeader> signup(Map<String, dynamic> body, String url) {
+    return net
+        .post(url,
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: body,
+            encoding: Encoding.getByName('utf-8'),
+            param: {})
+        .then(
+      (dynamic res) {
+        print(res);
+        if (res["errMsg"] != null) throw (res["errMsg"].toString());
+        return SignUpResponseHeader.fromJson(res);
+      },
+    );
   }
 
 //   Future<String> _createFileFromString() async {

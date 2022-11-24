@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:markon_project/bloc%20Architecture/bloc/signup_bloc.dart';
+import 'package:markon_project/bloc%20Architecture/event/signup_event.dart';
+import 'package:markon_project/bloc%20Architecture/state/signup_state.dart';
 import 'package:markon_project/helper/custom_textfield.dart';
 import 'package:markon_project/helper/extensions.dart';
+import 'package:markon_project/model/signup_model.dart';
 
 import 'package:markon_project/shared_widgets/custom_button.dart';
 import 'package:markon_project/theme/colors.dart';
 import 'package:markon_project/ui/sign_in/modalbottom_required._signin.dart';
+import 'package:markon_project/ui/wellcome_ui.dart';
 
 class Content_Welcome_Screen extends StatelessWidget {
   const Content_Welcome_Screen({
@@ -117,7 +123,7 @@ class Content_Welcome_Screen extends StatelessWidget {
                               topRight: Radius.circular(6),
                             )),
                             builder: (BuildContext context) {
-                              return SignUpBottomSheet();
+                              return SignUpblc();
                             });
                       },
                     ),
@@ -158,6 +164,24 @@ class Content_Welcome_Screen extends StatelessWidget {
   }
 }
 
+class SignUpblc extends StatefulWidget {
+  const SignUpblc({super.key});
+
+  @override
+  State<SignUpblc> createState() => _SignUpblcState();
+}
+
+class _SignUpblcState extends State<SignUpblc> {
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(providers: [
+      BlocProvider<SignUpBloc>(
+        create: (context) => SignUpBloc(),
+      ),
+    ], child: SignUpBottomSheet());
+  }
+}
+
 class SignUpBottomSheet extends StatefulWidget {
   const SignUpBottomSheet({
     super.key,
@@ -168,15 +192,24 @@ class SignUpBottomSheet extends StatefulWidget {
 }
 
 class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
+  TextEditingController fullNameCo = TextEditingController();
+  TextEditingController passwordCo = TextEditingController();
+  TextEditingController retypePasswordCo = TextEditingController();
+  TextEditingController phoneNumberCo = TextEditingController();
   TextEditingController emailCo = TextEditingController();
   TextEditingController usernameCo = TextEditingController();
   TextEditingController phoneCo = TextEditingController();
+  bool obsecure = true;
   final key = GlobalKey<FormState>();
-
+  String url = 'http://192.168.100.116:8086/markont/signUp';
 
   @override
   void initState() {
     super.initState();
+  }
+
+  bloc(dynamic event) {
+    BlocProvider.of<SignUpBloc>(context).add(event);
   }
 
   bool isEmail(String em) {
@@ -188,116 +221,197 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
     return regExp.hasMatch(em);
   }
 
- 
-
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: key,
-      child: Container(
-        padding: EdgeInsets.only(
-            left: context.deviceWidth(0.0555555555555556),
-            right: context.deviceWidth(0.0555555555555556),
-            top: context.deviceHeight(0.02)),
-        height: context.deviceHeight(0.67625),
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  GestureDetector(
-                    child: Icon(Icons.arrow_back),
-                    onTap: (() {
-                      Navigator.pop(context);
-                    }),
-                  ),
-                  Text('BACK')
-                ],
-              ),
-              SizedBox(
-                height: context.deviceHeight(0.023125),
-              ),
-              CustomFormTextField(
-                hint: 'FULL NAME',
-              ),
-              SizedBox(
-                height: context.deviceHeight(0.0125),
-              ),
-              CustomFormTextField(
-                hint: 'USERNAME',
-              ),
-              SizedBox(
-                height: context.deviceHeight(0.0125),
-              ),
-              CustomFormTextField(
-                  hint: 'EMAIL',
-                  controller: emailCo,
-                  maxLength: 30,
-                  inputType: TextInputType.emailAddress,
-                  validator: (value) => isEmail(value!)
-                      ? null
-                      : 'Check ur email (must filled and must contain @)'),
-              SizedBox(
-                height: context.deviceHeight(0.0125),
-              ),
-              CustomFormTextField(
-                hint: 'PASSWORD',
-              ),
-              SizedBox(
-                height: context.deviceHeight(0.0125),
-              ),
-              CustomFormTextField(
-                hint: 'RETYPE PASSWORD',
-              ),
-              SizedBox(
-                height: context.deviceHeight(0.0125),
-              ),
-              CustomFormTextField(
-                hint: 'PHONE NUMBER',
-                controller: phoneCo,
-                formatter: [
-                  FilteringTextInputFormatter.digitsOnly,
-                ],
-                maxLength: 12,
-                inputType: TextInputType.phone,
-                inputAction: TextInputAction.next,
-                validator: (value) =>
-                    value!.isEmpty ? 'Fill ur phone number' : null,
-              ),
-              SizedBox(
-                height: context.deviceHeight(0.0125),
-              ),
-              SizedBox(height: context.deviceHeight(0.0225)),
-              Center(
-                child: Column(
-                  children: [
-                    CustomButtonWithFreeColor(
-                      widthrectang: 2.0,
-                      colorRectang: Markongold,
-                      buttonHeight: context.deviceHeight(0.05),
-                      buttonWidth: context.deviceWidth(0.25),
-                      radius: 6,
-                      title: 'Submit',
-                      fontSizel: context.scaleFont(14),
-                      color: Markongold,
-                      textColor: MarkonBluePrimary,
-                      onTap: () async {
-                        // if (key.currentState!.validate()) {
-                        //   print('Done');
-                        // }
+    return BlocListener<SignUpBloc, SignUpState>(
+      listener: (context, state) async {
+        // if (condition) {
 
-                        
-                      },
+        // }
+        if (state is SignUpSuccess) {
+          context.succesSnackBar(state.succes!);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const WellScreen()),
+          );
+        }
+        if (state is SignUpFailed) {
+          context.failSnackbar(state.error!);
+        }
+      },
+      child: Form(
+        key: key,
+        child: Container(
+          padding: EdgeInsets.only(
+              left: context.deviceWidth(0.0555555555555556),
+              right: context.deviceWidth(0.0555555555555556),
+              top: context.deviceHeight(0.02)),
+          height: context.deviceHeight(0.67625),
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    GestureDetector(
+                      child: Icon(Icons.arrow_back),
+                      onTap: (() {
+                        Navigator.pop(context);
+                      }),
                     ),
-                    SizedBox(height: context.deviceHeight(0.02)),
+                    Text('BACK')
                   ],
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: context.deviceHeight(0.023125),
+                ),
+                CustomFormTextField(
+                  hint: 'FULL NAME',
+                  controller: fullNameCo,
+                ),
+                SizedBox(
+                  height: context.deviceHeight(0.0125),
+                ),
+                CustomFormTextField(
+                  hint: 'USERNAME',
+                  controller: usernameCo,
+                ),
+                SizedBox(
+                  height: context.deviceHeight(0.0125),
+                ),
+                CustomFormTextField(
+                    hint: 'EMAIL',
+                    controller: emailCo,
+                    maxLength: 30,
+                    inputType: TextInputType.emailAddress,
+                    validator: (value) => isEmail(value!)
+                        ? null
+                        : 'Check ur email (must filled and must contain @)'),
+                SizedBox(
+                  height: context.deviceHeight(0.0125),
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          obsecure = !obsecure;
+                        });
+                      },
+                      child: Icon(
+                        obsecure ? Icons.visibility_off : Icons.visibility,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    hintText: 'Password',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    filled: true,
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular((6)),
+                        borderSide: BorderSide(color: Colors.black38)),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular((6)),
+                        borderSide: BorderSide(color: Colors.black38)),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                  ),
+                  style: TextStyle(color: Colors.grey, fontSize: 12),
+                  obscureText: obsecure,
+                  controller: passwordCo,
+                ),
+                SizedBox(
+                  height: context.deviceHeight(0.0125),
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          obsecure = !obsecure;
+                        });
+                      },
+                      child: Icon(
+                        obsecure ? Icons.visibility_off : Icons.visibility,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    hintText: 'Password',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    filled: true,
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular((6)),
+                        borderSide: BorderSide(color: Colors.black38)),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular((6)),
+                        borderSide: BorderSide(color: Colors.black38)),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                  ),
+                  style: TextStyle(color: Colors.grey, fontSize: 12),
+                  obscureText: obsecure,
+                  controller: retypePasswordCo,
+                ),
+                SizedBox(
+                  height: context.deviceHeight(0.0125),
+                ),
+                CustomFormTextField(
+                  hint: 'PHONE NUMBER',
+                  controller: phoneCo,
+                  formatter: [
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
+                  inputType: TextInputType.phone,
+                  inputAction: TextInputAction.next,
+                  validator: (value) =>
+                      value!.isEmpty ? 'Fill ur phone number' : null,
+                ),
+                SizedBox(
+                  height: context.deviceHeight(0.0125),
+                ),
+                SizedBox(height: context.deviceHeight(0.0225)),
+                Center(
+                  child: Column(
+                    children: [
+                      CustomButtonWithFreeColor(
+                        widthrectang: 2.0,
+                        colorRectang: Markongold,
+                        buttonHeight: context.deviceHeight(0.05),
+                        buttonWidth: context.deviceWidth(0.25),
+                        radius: 6,
+                        title: 'Submit',
+                        fontSizel: context.scaleFont(14),
+                        color: Markongold,
+                        textColor: MarkonBluePrimary,
+                        onTap: () {
+                          if (key.currentState!.validate()) {
+                            SignUpRequest body = new SignUpRequest();
+                            body.username = usernameCo.text;
+                            body.fullName = fullNameCo.text;
+                            body.email = emailCo.text;
+                            body.mobilePhone = phoneCo.text;
+                            body.password = passwordCo.text;
+                            body.retypePassword = retypePasswordCo.text;
+                            body.url = url;
+
+                            bloc(SignSubmitted(body, url));
+                          } else {
+                            null;
+                          }
+                        },
+                      ),
+                      SizedBox(height: context.deviceHeight(0.02)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

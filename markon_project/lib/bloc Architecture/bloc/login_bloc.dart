@@ -9,7 +9,7 @@ import 'package:markon_project/service-markon/restt_api.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   RestApi api = new RestApi();
   SharedDB db = new SharedDB();
-  Login? log;
+  // Login? log;
   LogData? logs;
   LoginResponse result = LoginResponse();
   LoginBloc() : super(InitState()) {
@@ -41,7 +41,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     result = await api.login(req.toJson(), url);
   }
 
-  dynamic logout(LoginReq req, String url) async {
-    log = await api.logout(req.toJson(), url);
-  }
+  // dynamic logout(LoginReq req, String url) async {
+  //   log = await api.logout(req.toJson(), url);
+  // }
 }
