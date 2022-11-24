@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:markon_project/helper/constant.dart';
+import 'package:markon_project/ui/home/home_ui.dart';
+import 'package:markon_project/ui/wellcome_ui.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings? settings) {
     switch (settings!.name) {
-      // case Constant.LOGIN_SCREEN:
-      //   return MaterialPageRoute(builder: (_) => LoginScreen());
+      case Constant.MENU_HOME:
+        return MaterialPageRoute(builder: (_) => HomeUI());
+
+         case Constant.MENU_DASHBOARD:
+        return MaterialPageRoute(builder: (_) => WellScreen());
       // case Constant.FORCE_LOGOUT:
       //   return MaterialPageRoute(builder: (_) => LoginScreenAlternatif());
 

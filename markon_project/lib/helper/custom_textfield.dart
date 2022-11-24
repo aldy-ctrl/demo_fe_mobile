@@ -72,19 +72,19 @@ class CustomFormTextField extends StatelessWidget {
                 ? TrustPostLightGrey300
                 : TrustPostFillField,
         enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular((40)),
+            borderRadius: BorderRadius.circular((6)),
             borderSide: BorderSide(color: Colors.black38)),
         disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular((40)),
+            borderRadius: BorderRadius.circular((6)),
             borderSide: BorderSide(color: Colors.black, width: 0.0)),
         focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular((40)),
+            borderRadius: BorderRadius.circular((6)),
             borderSide: BorderSide(color: TrustPostBlack, width: 0.5)),
         errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular((40)),
+            borderRadius: BorderRadius.circular((6)),
             borderSide: BorderSide(color: TrustPostDanger, width: 0.5)),
         focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular((40)),
+            borderRadius: BorderRadius.circular((6)),
             borderSide: BorderSide(color: TrustPostDanger, width: 0.5)),
       ),
     );

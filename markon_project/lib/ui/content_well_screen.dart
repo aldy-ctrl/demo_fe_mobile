@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:markon_project/helper/custom_textfield.dart';
 import 'package:markon_project/helper/extensions.dart';
+
 import 'package:markon_project/shared_widgets/custom_button.dart';
 import 'package:markon_project/theme/colors.dart';
 import 'package:markon_project/ui/sign_in/modalbottom_required._signin.dart';
@@ -98,21 +99,22 @@ class Content_Welcome_Screen extends StatelessWidget {
                   children: [
                     CustomButtonWithFreeColor(
                       widthrectang: 3.0,
-                      colorRectang: Colors.black,
+                      colorRectang: Markongold,
                       buttonHeight: context.deviceHeight(0.06375),
                       buttonWidth: context.deviceWidth(0.3416666666666667),
-                      radius: 48,
-                      title: 'SIGN UP',
+                      radius: 6,
+                      title: 'Sign up',
                       fontSizel: context.scaleFont(19),
                       color: MarkonBlue,
                       textColor: Colors.black,
                       onTap: () {
                         showModalBottomSheet(
                             context: context,
+                            isScrollControlled: true,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(30),
-                              topRight: Radius.circular(30),
+                              topLeft: Radius.circular(6),
+                              topRight: Radius.circular(6),
                             )),
                             builder: (BuildContext context) {
                               return SignUpBottomSheet();
@@ -122,25 +124,26 @@ class Content_Welcome_Screen extends StatelessWidget {
                     SizedBox(width: context.deviceWidth(0.1055555555555556)),
                     CustomButtonWithFreeColor(
                       widthrectang: 3.0,
-                      colorRectang: Colors.black,
+                      colorRectang: Markongold,
                       buttonHeight: context.deviceHeight(0.06375),
                       buttonWidth: context.deviceWidth(0.3416666666666667),
-                      radius: context.deviceHeight(0.4),
+                      radius: 6,
                       fontSizel: context.scaleFont(19),
-                      title: 'SIGN IN',
-                      color: Colors.black,
-                      textColor: Colors.white,
+                      title: 'Sign in',
+                      color: Markongold,
+                      textColor: Colors.black,
                       onTap: () {
                         showModalBottomSheet(
+                          isScrollControlled: true,
                           enableDrag: true,
                           context: context,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30),
-                            topRight: Radius.circular(30),
+                            topLeft: Radius.circular(6),
+                            topRight: Radius.circular(6),
                           )),
                           builder: (BuildContext context) {
-                            return ModContain(mode: 'SIGNIN');
+                            return NeedLogin(mode: 'SIGNIN');
                           },
                         );
                       },
@@ -170,6 +173,7 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
   TextEditingController phoneCo = TextEditingController();
   final key = GlobalKey<FormState>();
 
+
   @override
   void initState() {
     super.initState();
@@ -184,6 +188,8 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
     return regExp.hasMatch(em);
   }
 
+ 
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -193,7 +199,7 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
             left: context.deviceWidth(0.0555555555555556),
             right: context.deviceWidth(0.0555555555555556),
             top: context.deviceHeight(0.02)),
-        height: context.deviceHeight(1),
+        height: context.deviceHeight(0.67625),
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           scrollDirection: Axis.vertical,
@@ -257,7 +263,7 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
                   FilteringTextInputFormatter.digitsOnly,
                 ],
                 maxLength: 12,
-                inputType: TextInputType.text,
+                inputType: TextInputType.phone,
                 inputAction: TextInputAction.next,
                 validator: (value) =>
                     value!.isEmpty ? 'Fill ur phone number' : null,
@@ -271,18 +277,20 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
                   children: [
                     CustomButtonWithFreeColor(
                       widthrectang: 2.0,
-                      colorRectang: Colors.grey,
+                      colorRectang: Markongold,
                       buttonHeight: context.deviceHeight(0.05),
                       buttonWidth: context.deviceWidth(0.25),
-                      radius: context.deviceHeight(0.4),
-                      title: 'SUBMIT',
+                      radius: 6,
+                      title: 'Submit',
                       fontSizel: context.scaleFont(14),
-                      color: Colors.white,
-                      textColor: Colors.grey,
-                      onTap: () {
-                        if (key.currentState!.validate()) {
-                          print('Done');
-                        }
+                      color: Markongold,
+                      textColor: MarkonBluePrimary,
+                      onTap: () async {
+                        // if (key.currentState!.validate()) {
+                        //   print('Done');
+                        // }
+
+                        
                       },
                     ),
                     SizedBox(height: context.deviceHeight(0.02)),

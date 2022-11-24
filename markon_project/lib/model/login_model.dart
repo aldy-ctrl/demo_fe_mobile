@@ -68,24 +68,51 @@ class Login {
   }
 }
 
+// class LoginReq {
+//   String? userCode;
+//   String? userPasswd;
+
+//   String? username;
+//   String? password;
+
+//   //helper
+//   String? url;
+
+//   LoginReq({this.userCode, this.userPasswd, this.url});
+
+//   LoginReq.fromJson(Map<String, dynamic> json) {
+//     username = json['username'];
+//     password = json['password'];
+//   }
+
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['username'] = this.username;
+//     data['password'] = this.password;
+//     return data;
+//   }
+// }
+
 class LoginReq {
   String? userCode;
   String? userPasswd;
+  String? username;
+  String? password;
 
   //helper
   String? url;
 
-  LoginReq({this.userCode, this.userPasswd, this.url});
+  LoginReq({this.username, this.password, this.userCode, this.userPasswd});
 
   LoginReq.fromJson(Map<String, dynamic> json) {
-    userCode = json['userCode'];
-    userPasswd = json['userPasswd'];
+    username = json['username'];
+    password = json['password'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['userCode'] = this.userCode;
-    data['userPasswd'] = this.userPasswd;
+    data['username'] = this.username;
+    data['password'] = this.password;
     return data;
   }
 }

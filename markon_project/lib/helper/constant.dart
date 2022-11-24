@@ -14,11 +14,12 @@ class Constant extends InheritedWidget {
   static const String MENU_CUSTOMER_DETAIL = "MENU_CUSTOMER_DETAIL";
   static const String MENU_PRODUCT_ADD = "MENU_PRODUCT_ADD";
   static const String MENU_PRODUCT_ADD_RETUR = "MENU_PRODUCT_ADD_RETUR";
-  static const String MENU_PRODUCT_ADD_VISIT_PLAN_DETAIL = "MENU_PRODUCT_ADD_VISIT_PLAN_DETAIL";
+  static const String MENU_PRODUCT_ADD_VISIT_PLAN_DETAIL =
+      "MENU_PRODUCT_ADD_VISIT_PLAN_DETAIL";
   static const String MENU_DETAIL_PPN = "MENU_DETAIL_PPN";
   static const String MENU_SEARCH_PRODUCT = "MENU_SEARCH_PRODUCT";
   static const String MENU_ADD_SALES_ORDER = "MENU_ADD_SALES_ORDER";
-   static const String MENU_ADD_VISIT_PLAN = "MENU_ADD_VISIT_PLAN";
+  static const String MENU_ADD_VISIT_PLAN = "MENU_ADD_VISIT_PLAN";
   static const String MENU_EDIT_SALES_ORDER = "MENU_EDIT_SALES_ORDER";
   static const String MENU_SEARCH_CREDIT = "MENU_SEARCH_CREDIT";
   static const String MENU_SEARCH_PREPARATION = "MENU_SEARCH_PREPARATION";
@@ -95,6 +96,9 @@ class Constant extends InheritedWidget {
 
   static const String DirectionDriver = "DirectionDriver";
 
+  //markon
+  static const String MENU_HOME = "MENU_HOME";
+
   @override
   bool updateShouldNotify(Constant oldWidget) => false;
 }
@@ -108,7 +112,7 @@ extension StringExtension on String {
 class ApiConstants {
   static const String Login = "login";
   static const String Edit_Retur = "updateReturPelanggan";
-    static const String Edit_Visit_Plan = "modeEditVisitPlan";
+  static const String Edit_Visit_Plan = "modeEditVisitPlan";
   static const String LogOut = "logout";
   static const String RefreshToken = "refreshToken";
 
@@ -186,17 +190,26 @@ class SharedKey {
   static const String refreshToken = 'refreshToken';
   static const String tokenExpDate = 'tokenExpDate';
   static const String refreshTokenExpDate = 'refreshTokenExpDate';
-  static const String tokenAge = 'tokenAge';
+
   static const String refreshTokenAge = 'refreshTokenAge';
   static const String userCode = 'userCode';
   static const String userPass = 'refreshTokenAge';
-  static const String username = 'username';
+
   static const String useToken = 'useToken';
   static const String roleCode = 'roleCode';
   static const String companyId = 'companyId';
   static const String companyName = 'companyName';
   static const String address = 'address';
+
+//markon
   static const String url = 'url';
+  static const String username = 'username';
+  static const String password = 'password';
+  static const String tokenAge = 'tokenAge';
+  static const String tokenType = 'tokenType';
+  static const String accessToken = 'accessToken';
+  static const String accesTokenExpDate = 'accesTokenExpDate';
+  static const String accessTokenAge = 'accessTokenAge';
 }
 
 class TradeConst {

@@ -40,3 +40,5 @@ const TrustPostRedAccent = const Color(0xFFFF5252);
 const TrustPostSeparator = const Color(0xFFEBEDF3);
 const PutihRusak = const Color(0xFEEEBE3);
 const MarkonBlue = const Color(0xFFFACC2FE);
+const Markongold = const Color(0xFFFF9D030);
+const MarkonBluePrimary = const Color(0xFFF3059F9);
