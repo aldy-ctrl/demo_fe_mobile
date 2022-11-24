@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:markon_project/helper/extensions.dart';
 import 'package:markon_project/theme/colors.dart';
 import 'package:markon_project/ui/content_well_screen.dart';
@@ -14,6 +15,7 @@ class _WellScreenState extends State<WellScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         height: context.deviceHeight(1),
         width: context.deviceWidth(1),

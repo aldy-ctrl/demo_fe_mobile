@@ -42,6 +42,7 @@ class CustomFormTextField extends StatelessWidget {
     return TextFormField(
       enableInteractiveSelection: this.inputType != TextInputType.number,
       inputFormatters: this.formatter,
+      autofocus: true,
       readOnly: this.readOnly ?? false,
       controller: this.controller,
       validator: this.validator,
@@ -53,38 +54,38 @@ class CustomFormTextField extends StatelessWidget {
       textInputAction: this.inputAction,
       onFieldSubmitted: this.onAction,
       onTap: this.onTap,
-      style: TextStyle(color: Colors.grey, fontSize: 12, height: 0.5),
+      style: TextStyle(color: Colors.grey, fontSize: 12),
       decoration: InputDecoration(
         suffixIcon: this.suffixIcon,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         enabled: this.enabled ?? true,
         labelText: this.label,
         hintText: this.hint,
-        hintStyle: TextStyle(fontSize: 10, color: Colors.grey),
+        hintStyle: TextStyle(fontSize: 12, color: Colors.grey),
         labelStyle: TextStyle(
-          fontSize: 10,
+          fontSize: 12,
           color: TrustPostMainText,
         ),
         filled: true,
         fillColor: (readOnly == null)
-            ? TrustPostFillField
+            ? TrustPostLightGrey300
             : readOnly!
                 ? TrustPostLightGrey300
-                : TrustPostFillField,
+                : TrustPostLightGrey300,
         enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular((6)),
-            borderSide: BorderSide(color: Colors.black38)),
+            borderRadius: BorderRadius.circular((10)),
+            borderSide: BorderSide(color: TrustPostLightGrey300)),
         disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular((6)),
-            borderSide: BorderSide(color: Colors.black, width: 0.0)),
+            borderRadius: BorderRadius.circular((10)),
+            borderSide: BorderSide(color: TrustPostLightGrey300, width: 0.0)),
         focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular((6)),
-            borderSide: BorderSide(color: TrustPostBlack, width: 0.5)),
+            borderRadius: BorderRadius.circular((10)),
+            borderSide: BorderSide(color: TrustPostLightGrey300, width: 0.5)),
         errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular((6)),
+            borderRadius: BorderRadius.circular((10)),
             borderSide: BorderSide(color: TrustPostDanger, width: 0.5)),
         focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular((6)),
+            borderRadius: BorderRadius.circular((10)),
             borderSide: BorderSide(color: TrustPostDanger, width: 0.5)),
       ),
     );

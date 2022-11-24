@@ -103,7 +103,7 @@ class _ModContainState extends State<ModContain> {
               left: context.deviceWidth(0.0555555555555556),
               right: context.deviceWidth(0.0555555555555556),
               top: context.deviceHeight(0.02)),
-          height: context.deviceHeight(0.67625),
+          height: context.deviceHeight(0.76),
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             physics: BouncingScrollPhysics(),
@@ -133,10 +133,13 @@ class _ModContainState extends State<ModContain> {
                   height: context.deviceHeight(0.045),
                 ),
                 CustomFormTextField(
-                  hint: 'USERNAME',
+                  hint: 'Username',
+                  enabled: true,
+
                   controller: usernameCo,
                   maxLength: 30,
                   inputType: TextInputType.emailAddress,
+
                   // validator: (value) =>
                   //     isEmail(value!) ? null : 'Check ur email'
                 ),
@@ -149,6 +152,7 @@ class _ModContainState extends State<ModContain> {
                     children: [
                       TextFormField(
                         decoration: InputDecoration(
+                          fillColor: TrustPostLightGrey300,
                           suffixIcon: GestureDetector(
                             onTap: () {
                               setState(() {
@@ -166,14 +170,17 @@ class _ModContainState extends State<ModContain> {
                           hintStyle: TextStyle(color: Colors.grey),
                           filled: true,
                           focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular((6)),
-                              borderSide: BorderSide(color: Colors.black38)),
+                              borderRadius: BorderRadius.circular((4)),
+                              borderSide:
+                                  BorderSide(color: TrustPostLightGrey300)),
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular((6)),
-                              borderSide: BorderSide(color: Colors.black38)),
+                              borderRadius: BorderRadius.circular((4)),
+                              borderSide:
+                                  BorderSide(color: TrustPostLightGrey300)),
                           border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
-                            borderRadius: BorderRadius.circular(6),
+                            borderSide:
+                                BorderSide(color: TrustPostLightGrey300),
+                            borderRadius: BorderRadius.circular(4),
                           ),
                         ),
                         style: TextStyle(color: Colors.grey, fontSize: 12),
@@ -194,10 +201,11 @@ class _ModContainState extends State<ModContain> {
                       CustomButtonWithFreeColor(
                         widthrectang: 2.0,
                         colorRectang: Markongold,
-                        buttonHeight: context.deviceHeight(0.05875),
+                        buttonHeight: context.deviceHeight(0.0625),
                         buttonWidth: context.deviceWidth(0.2777777777777778),
-                        radius: 6,
-                        title: widget.mode == 'SIGNIN' ? 'SIGN IN' : 'SUBMIT',
+                        radius: 10,
+                        fontWeight: FontWeight.w700,
+                        title: widget.mode == 'SIGNIN' ? 'Sign in' : 'Submit',
                         fontSizel: context.scaleFont(14),
                         color: Markongold,
                         textColor: MarkonBluePrimary,
@@ -230,7 +238,9 @@ class _ModContainState extends State<ModContain> {
                             GestureDetector(
                                 child: Text(
                                   'FORGOT PASSWORD ?',
-                                  style: TextStyle(color: Colors.black),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: context.scaleFont(12)),
                                 ),
                                 onTap: () {
                                   showModalBottomSheet(
@@ -243,7 +253,7 @@ class _ModContainState extends State<ModContain> {
                                       topRight: Radius.circular(6),
                                     )),
                                     builder: (BuildContext context) {
-                                      return ModContain(mode: 'FORGOT');
+                                      return NeedLogin(mode: 'FORGOT');
                                     },
                                   );
                                 }),

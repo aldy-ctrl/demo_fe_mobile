@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:markon_project/helper/locator.dart';
 import 'package:markon_project/route_generator.dart';
 import 'package:markon_project/ui/wellcome_ui.dart';
@@ -18,10 +17,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Markon',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme),
-      ),
+      // theme: ThemeData(
+      //   primarySwatch: Colors.blue,
+      //   textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme),
+      // ),
+      theme: ThemeData(fontFamily: 'Inter'),
       home: const WellScreen(),
       onGenerateRoute: (settings) => RouteGenerator.generateRoute(settings),
     );
