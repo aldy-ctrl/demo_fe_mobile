@@ -25,12 +25,12 @@ class SharedDB {
     //helper
     await prefs.setString(SharedKey.username, login.username.toString());
     await prefs.setString(SharedKey.password, login.password.toString());
-    await prefs.setString(SharedKey.url, login.url.toString());
+   
   }
 
   Future<LoginResponse> getUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    //Login log = new Login();
+  
     LoginResponse log = new LoginResponse();
 
     await checkTokenAge();
@@ -44,7 +44,7 @@ class SharedDB {
     log.username = prefs.getString(SharedKey.username);
     log.password = prefs.getString(SharedKey.password);
 
-    log.url = (prefs.getString(SharedKey.url));
+
 
     return log;
   }
@@ -62,7 +62,7 @@ class SharedDB {
 
     String? id = prefs.getString(SharedKey.username);
     String? pass = prefs.getString(SharedKey.password);
-    String? server = prefs.getString(SharedKey.url);
+   
 
     if (exp1 != null) {
       DateTime now = DateTime.now();
@@ -73,7 +73,7 @@ class SharedDB {
         LoginReq log = new LoginReq(); //akses logout
         log.username = id;
         log.password = pass;
-        log.url = server;
+     
         try {
           await api.logout(log.toJson(), log.url!);
           await dbClear();

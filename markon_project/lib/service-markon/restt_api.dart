@@ -6,17 +6,16 @@ import 'package:markon_project/helper/shared_pref.dart';
 import 'package:markon_project/model/login_model.dart';
 import 'package:markon_project/model/login_response_model.dart';
 import 'package:markon_project/model/signup_model.dart';
+import 'package:markon_project/service-markon/api_url.dart';
 import 'package:markon_project/service-markon/net_util.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-class RestApi {
+class RestApi extends ApiUrl {
   NetworkUtil net = new NetworkUtil();
   Login? log;
   SharedDB db = new SharedDB();
-
-  String baseUrl = '';
 
   Future<String?> getToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -44,9 +43,9 @@ class RestApi {
   //   );
   // }
 
-  Future<LoginResponse> login(Map<String, dynamic> body, String url) {
+  Future<LoginResponse> login(Map<String, dynamic> body) {
     return net
-        .post(url,
+        .post(baseUrl + '/signIn',
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
@@ -193,9 +192,9 @@ class RestApi {
     return res;
   }
 
-  Future<SignUpResponseHeader> signup(Map<String, dynamic> body, String url) {
+  Future<SignUpResponseHeader> signup(Map<String, dynamic> body) {
     return net
-        .post(url,
+        .post(baseUrl + "/signUp",
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
@@ -211,14 +210,4 @@ class RestApi {
       },
     );
   }
-
-//   Future<String> _createFileFromString() async {
-// final encodedStr = "put base64 encoded string here";
-// Uint8List bytes = base64.decode(encodedStr);
-// String dir = (await getApplicationDocumentsDirectory()).path;
-// File file = File(
-//     "$dir/" + DateTime.now().millisecondsSinceEpoch.toString() + ".pdf");
-// await file.writeAsBytes(bytes);
-// return file.path;
-//  }
 }

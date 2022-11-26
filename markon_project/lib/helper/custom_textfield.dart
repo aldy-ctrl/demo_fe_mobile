@@ -64,29 +64,29 @@ class CustomFormTextField extends StatelessWidget {
         hintStyle: TextStyle(fontSize: 12, color: Colors.grey),
         labelStyle: TextStyle(
           fontSize: 12,
-          color: TrustPostMainText,
+          color: MarkonsMainText,
         ),
         filled: true,
         fillColor: (readOnly == null)
-            ? TrustPostLightGrey300
+            ? MarkonsLightGrey300
             : readOnly!
-                ? TrustPostLightGrey300
-                : TrustPostLightGrey300,
+                ? MarkonsLightGrey300
+                : MarkonsLightGrey300,
         enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular((10)),
-            borderSide: BorderSide(color: TrustPostLightGrey300)),
+            borderRadius: BorderRadius.circular((4)),
+            borderSide: BorderSide(color: MarkonsLightGrey300)),
         disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular((10)),
-            borderSide: BorderSide(color: TrustPostLightGrey300, width: 0.0)),
+            borderRadius: BorderRadius.circular((4)),
+            borderSide: BorderSide(color: MarkonsLightGrey300, width: 0.0)),
         focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular((10)),
-            borderSide: BorderSide(color: TrustPostLightGrey300, width: 0.5)),
+            borderRadius: BorderRadius.circular((4)),
+            borderSide: BorderSide(color: MarkonsLightGrey300, width: 0.5)),
         errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular((10)),
-            borderSide: BorderSide(color: TrustPostDanger, width: 0.5)),
+            borderRadius: BorderRadius.circular((4)),
+            borderSide: BorderSide(color: MarkonsDanger, width: 0.5)),
         focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular((10)),
-            borderSide: BorderSide(color: TrustPostDanger, width: 0.5)),
+            borderRadius: BorderRadius.circular((4)),
+            borderSide: BorderSide(color: MarkonsDanger, width: 0.5)),
       ),
     );
   }
@@ -129,10 +129,10 @@ class CustomPasswordTextField extends StatelessWidget {
       textInputAction: this.inputAction,
       onFieldSubmitted: this.onAction,
       maxLength: maxLength,
-      style: TextStyle(color: TrustPostMainText, fontSize: 16),
+      style: TextStyle(color: MarkonsMainText, fontSize: 16),
       decoration: InputDecoration(
         labelText: this.label,
-        labelStyle: TextStyle(color: TrustPostUnselect),
+        labelStyle: TextStyle(color: MarkonsUnselect),
         isDense: true,
         suffixIcon: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -140,7 +140,7 @@ class CustomPasswordTextField extends StatelessWidget {
             onTap: this.onHideTap,
             child: Icon(
               this.hidePassword! ? Icons.visibility_off : Icons.visibility,
-              color: TrustPostBlack,
+              color: MarkonsBlack,
             ),
           ),
         ),
@@ -152,21 +152,21 @@ class CustomPasswordTextField extends StatelessWidget {
         hintStyle: TextStyle(fontSize: 14),
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
-            borderSide: BorderSide(color: TrustPostUnselect)),
+            borderSide: BorderSide(color: MarkonsUnselect)),
         disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
-            borderSide: BorderSide(color: TrustPostUnselect)),
+            borderSide: BorderSide(color: MarkonsUnselect)),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
-            borderSide: BorderSide(color: TrustPostBlack, width: 1.8)),
+            borderSide: BorderSide(color: MarkonsBlack, width: 1.8)),
         filled: true,
-        fillColor: TrustPostFillField,
+        fillColor: MarkonsFillField,
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
-            borderSide: BorderSide(color: TrustPostDanger)),
+            borderSide: BorderSide(color: MarkonsDanger)),
         focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
-            borderSide: BorderSide(color: TrustPostDanger, width: 1.8)),
+            borderSide: BorderSide(color: MarkonsDanger, width: 1.8)),
       ),
       onChanged: this.onChanged,
       validator: this.validator,

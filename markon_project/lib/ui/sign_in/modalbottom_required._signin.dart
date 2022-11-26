@@ -152,7 +152,7 @@ class _ModContainState extends State<ModContain> {
                     children: [
                       TextFormField(
                         decoration: InputDecoration(
-                          fillColor: TrustPostLightGrey300,
+                          fillColor: MarkonsLightGrey300,
                           suffixIcon: GestureDetector(
                             onTap: () {
                               setState(() {
@@ -172,14 +172,13 @@ class _ModContainState extends State<ModContain> {
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular((4)),
                               borderSide:
-                                  BorderSide(color: TrustPostLightGrey300)),
+                                  BorderSide(color: MarkonsLightGrey300)),
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular((4)),
                               borderSide:
-                                  BorderSide(color: TrustPostLightGrey300)),
+                                  BorderSide(color: MarkonsLightGrey300)),
                           border: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: TrustPostLightGrey300),
+                            borderSide: BorderSide(color: MarkonsLightGrey300),
                             borderRadius: BorderRadius.circular(4),
                           ),
                         ),
@@ -198,32 +197,7 @@ class _ModContainState extends State<ModContain> {
                 Center(
                   child: Column(
                     children: [
-                      CustomButtonWithFreeColor(
-                        widthrectang: 2.0,
-                        colorRectang: Markongold,
-                        buttonHeight: context.deviceHeight(0.0625),
-                        buttonWidth: context.deviceWidth(0.2777777777777778),
-                        radius: 10,
-                        fontWeight: FontWeight.w700,
-                        title: widget.mode == 'SIGNIN' ? 'Sign in' : 'Submit',
-                        fontSizel: context.scaleFont(14),
-                        color: Markongold,
-                        textColor: MarkonBluePrimary,
-                        onTap: () {
-                          if (key.currentState!.validate()) {
-                            if (widget.mode == 'SIGNIN') {
-                              LoginReq body = new LoginReq();
-                              body.username = usernameCo.text;
-                              body.password = passwordCo.text;
-                              body.url = url;
-
-                              bloc(LoginSubmitted(body, url));
-                            } else {
-                              null;
-                            }
-                          }
-                        },
-                      ),
+                      confirmMarconSignIn(),
                       widget.mode == 'SIGNIN'
                           ? SizedBox(
                               height: context.deviceHeight(0.0175),
@@ -268,6 +242,45 @@ class _ModContainState extends State<ModContain> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget confirmMarconSignIn() {
+    return BlocBuilder<LoginBloc, LoginState>(
+      builder: (context, state) {
+        if (state is LoginInProgress) {
+          return Center(
+              child: CircularProgressIndicator(
+            color: Markongold,
+          ));
+        } else {
+          return CustomButtonWithFreeColor(
+            widthrectang: 2.0,
+            colorRectang: Markongold,
+            buttonHeight: context.deviceHeight(0.0625),
+            buttonWidth: context.deviceWidth(0.2777777777777778),
+            radius: 10,
+            fontWeight: FontWeight.w700,
+            title: widget.mode == 'SIGNIN' ? 'Sign in' : 'Submit',
+            fontSizel: context.scaleFont(14),
+            color: Markongold,
+            textColor: MarkonBluePrimary,
+            onTap: () {
+              if (key.currentState!.validate()) {
+                if (widget.mode == 'SIGNIN') {
+                  LoginReq body = new LoginReq();
+                  body.username = usernameCo.text;
+                  body.password = passwordCo.text;
+
+                  bloc(LoginSubmitted(body));
+                } else {
+                  null;
+                }
+              }
+            },
+          );
+        }
+      },
     );
   }
 }

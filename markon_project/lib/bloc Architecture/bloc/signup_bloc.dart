@@ -16,10 +16,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<SignUpEvent>((event, emit) async {
       try {
         if (event is SignSubmitted) {
-          //emit(SignUpInProgress());
+          emit(SignUpInProgress());
           SignUpRequest req = SignUpRequest();
           req = event.body;
-          await signup(req, event.url);
+          await signup(req);
           emit(SignUpSuccess(
               succes: 'Succes Sign Up MarConn With Username: ' +
                   req.fullName.toString()));
@@ -29,7 +29,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       }
     });
   }
-  dynamic signup(SignUpRequest req, String url) async {
-    result = await api.signup(req.toJson(), url);
+  dynamic signup(SignUpRequest req) async {
+    result = await api.signup(req.toJson());
   }
 }

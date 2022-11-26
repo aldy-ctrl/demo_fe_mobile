@@ -4,7 +4,6 @@ class SignUpEvent {}
 
 class SignSubmitted extends SignUpEvent {
   final SignUpRequest body;
-  final String url;
 
-  SignSubmitted(this.body, this.url);
+  SignSubmitted(this.body);
 }

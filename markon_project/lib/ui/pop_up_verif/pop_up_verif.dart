@@ -1,21 +1,77 @@
 import 'package:flutter/material.dart';
-import 'package:markon_project/helper/custom_textfield.dart';
-
 import 'package:markon_project/helper/extensions.dart';
 import 'package:markon_project/shared_widgets/custom_button.dart';
 import 'package:markon_project/theme/colors.dart';
+import 'package:markon_project/ui/otp_timer/otp_timer.dart';
 
 class Verifpop extends StatefulWidget {
-  const Verifpop({super.key});
+  final String? email;
+  const Verifpop({super.key, this.email});
 
   @override
   State<Verifpop> createState() => _PopUpVerifState();
 }
 
-class _PopUpVerifState extends State<Verifpop> {
+class _PopUpVerifState extends State<Verifpop>
+    with SingleTickerProviderStateMixin {
   final key = GlobalKey<FormState>();
   TextEditingController emailCo = TextEditingController();
   int count = 2;
+  int getinTime = 30;
+  List<String> valueL = [];
+  AnimationController? controller;
+  bool hideText = true;
+  int? timeInSecs;
+
+  @override
+  void initState() {
+    timeInSecs = getinTime;
+    emailCo.text = widget.email!;
+
+    controller =
+        AnimationController(vsync: this, duration: Duration(seconds: getinTime))
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.dismissed) {
+              setState(() {
+                hideText = !hideText;
+              });
+            }
+          });
+    controller!
+        .reverse(from: controller!.value == 0.0 ? 1.0 : controller!.value);
+    _startCountdown();
+    super.initState();
+  }
+
+  Future<Null> _startCountdown() async {
+    setState(() {
+      hideText = true;
+      timeInSecs = getinTime;
+    });
+    controller!
+        .reverse(from: controller!.value == 0.0 ? 1.0 : controller!.value);
+  }
+
+  get getTimerText {
+    return Container(
+      height: context.deviceHeight(0.04),
+      child: Offstage(
+        offstage: !hideText,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            //Icon(Icons.access_time),
+            Text('Fasttt, time left :'),
+            SizedBox(
+              width: 5.0,
+            ),
+            OtpTimer(controller!, 15.0, Colors.black)
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -59,13 +115,30 @@ class _PopUpVerifState extends State<Verifpop> {
                         fontSize: context.scaleFont(12),
                         fontWeight: FontWeight.w400)),
                 SizedBox(height: context.deviceHeight(0.01875)),
-                CustomFormTextField(
-                  hint: 'EMAIL',
-                  enabled: false,
-                  readOnly: false,
+                TextFormField(
+                  decoration: InputDecoration(
+                    fillColor: MarkonsLightGrey300,
+                    enabled: false,
+                    hintText: 'Email',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    filled: true,
+                    disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular((10)),
+                        borderSide:
+                            BorderSide(color: MarkonsLightGrey300, width: 0.0)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular((10)),
+                        borderSide: BorderSide(color: MarkonsLightGrey300)),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular((10)),
+                        borderSide: BorderSide(color: MarkonsLightGrey300)),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: MarkonsLightGrey300),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  style: TextStyle(color: Colors.grey, fontSize: 12),
                   controller: emailCo,
-                  maxLength: 30,
-                  inputType: TextInputType.emailAddress,
                 ),
                 SizedBox(
                   height: context.deviceHeight(0.015),
@@ -101,30 +174,34 @@ class _PopUpVerifState extends State<Verifpop> {
                   fontSizel: context.scaleFont(12),
                   color: Markongold,
                   textColor: MarkonBluePrimary,
-                  onTap: () {},
+                  onTap: valueL.length == 5 ? () {} : null,
                 ),
                 SizedBox(
                   height: context.deviceHeight(0.01555),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text("Didn't receive code ? "),
-                    Text(
-                      'Resend Code',
-                      style: TextStyle(color: MarkBlue),
-                    )
-                  ],
-                ),
+                hideText ? getTimerText : getText(),
                 SizedBox(
-                  height: context.deviceHeight(0.2),
+                  height: context.deviceHeight(0.5),
                 ),
               ]))
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Row getText() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text("Didn't receive code ? "),
+        Text(
+          'Resend Code',
+          style: TextStyle(color: MarkBlue),
+        )
+      ],
     );
   }
 
@@ -142,27 +219,26 @@ class _PopUpVerifState extends State<Verifpop> {
         child: TextFormField(
           autofocus: autoFocus,
           decoration: InputDecoration(
-            fillColor: TrustPostLightGrey300,
+            fillColor: MarkonsLightGrey300,
             hintStyle: TextStyle(color: Colors.grey),
             filled: true,
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular((10)),
-                borderSide: BorderSide(color: TrustPostLightGrey300)),
+                borderSide: BorderSide(color: MarkonsLightGrey300)),
             disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular((10)),
-                borderSide:
-                    BorderSide(color: TrustPostLightGrey300, width: 0.0)),
+                borderSide: BorderSide(color: MarkonsLightGrey300, width: 0.0)),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular((10)),
                 borderSide: BorderSide.none),
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular((10)),
-                borderSide: BorderSide(color: TrustPostDanger, width: 0.5)),
+                borderSide: BorderSide(color: MarkonsDanger, width: 0.5)),
             focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular((10)),
-                borderSide: BorderSide(color: TrustPostDanger, width: 0.5)),
+                borderSide: BorderSide(color: MarkonsDanger, width: 0.5)),
             border: OutlineInputBorder(
-              borderSide: BorderSide(color: TrustPostLightGrey300),
+              borderSide: BorderSide(color: MarkonsLightGrey300),
               borderRadius: BorderRadius.circular(10),
             ),
           ),
@@ -172,6 +248,7 @@ class _PopUpVerifState extends State<Verifpop> {
           maxLines: 1,
           onChanged: (value) {
             if (value.length == 1) {
+              valueL.add(value);
               FocusScope.of(context).nextFocus();
             }
           },
