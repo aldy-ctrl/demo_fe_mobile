@@ -32,7 +32,6 @@ class Content_Welcome_Screen extends StatelessWidget {
             child:
                 Image.asset('assets/image/Logo Mobile.png', fit: BoxFit.fill)),
       ),
-
       Padding(
         padding: EdgeInsets.only(
           top: context.deviceHeight(0.32375),
@@ -48,8 +47,6 @@ class Content_Welcome_Screen extends StatelessWidget {
               fit: BoxFit.fitWidth,
             )),
       ),
-
-     
       Positioned(
           top: context.deviceHeight(0.660675),
           left: context.deviceWidth(0.0555555555555556),
@@ -64,12 +61,10 @@ class Content_Welcome_Screen extends StatelessWidget {
                   fontWeight: FontWeight.w800),
             ),
           )),
-
       Positioned(
           top: context.deviceHeight(0.726925),
           left: context.deviceWidth(0.0555555555555556),
           right: context.deviceWidth(0.0555555555555556),
-
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,6 +105,7 @@ class Content_Welcome_Screen extends StatelessWidget {
                         showModalBottomSheet(
                             context: context,
                             isScrollControlled: true,
+                            isDismissible: false,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(10),
@@ -135,6 +131,7 @@ class Content_Welcome_Screen extends StatelessWidget {
                       onTap: () {
                         showModalBottomSheet(
                           isScrollControlled: true,
+                          isDismissible: false,
                           enableDrag: true,
                           context: context,
                           shape: RoundedRectangleBorder(
@@ -156,5 +153,3 @@ class Content_Welcome_Screen extends StatelessWidget {
     ]);
   }
 }
-
-

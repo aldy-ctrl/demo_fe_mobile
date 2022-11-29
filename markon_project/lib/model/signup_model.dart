@@ -66,7 +66,7 @@ class SignUpResponseHeader {
 
 class SignUpResponseData {
   String? createdBy;
-  int? createdDt;
+  String? createdDt;
   dynamic changedBy;
   dynamic changedDt;
   bool? deletedFlag;
@@ -75,6 +75,12 @@ class SignUpResponseData {
   String? password;
   String? email;
   String? mobilePhone;
+  String? otpRegis;
+  bool? flagRegis;
+  dynamic otpReset;
+  bool? flagReset;
+  String? regisTime;
+  String? resetTime;
 
   SignUpResponseData(
       {this.createdBy,
@@ -86,7 +92,13 @@ class SignUpResponseData {
       this.fullName,
       this.password,
       this.email,
-      this.mobilePhone});
+      this.mobilePhone,
+      this.otpRegis,
+      this.flagRegis,
+      this.otpReset,
+      this.flagReset,
+      this.regisTime,
+      this.resetTime});
 
   SignUpResponseData.fromJson(Map<String, dynamic> json) {
     createdBy = json['createdBy'];
@@ -99,6 +111,12 @@ class SignUpResponseData {
     password = json['password'];
     email = json['email'];
     mobilePhone = json['mobilePhone'];
+    otpRegis = json['otpRegis'];
+    flagRegis = json['flagRegis'];
+    otpReset = json['otpReset'];
+    flagReset = json['flagReset'];
+    regisTime = json['regisTime'];
+    resetTime = json['resetTime'];
   }
 
   Map<String, dynamic> toJson() {
@@ -113,6 +131,12 @@ class SignUpResponseData {
     data['password'] = this.password;
     data['email'] = this.email;
     data['mobilePhone'] = this.mobilePhone;
+    data['otpRegis'] = this.otpRegis;
+    data['flagRegis'] = this.flagRegis;
+    data['otpReset'] = this.otpReset;
+    data['flagReset'] = this.flagReset;
+    data['regisTime'] = this.regisTime;
+    data['resetTime'] = this.resetTime;
     return data;
   }
 }

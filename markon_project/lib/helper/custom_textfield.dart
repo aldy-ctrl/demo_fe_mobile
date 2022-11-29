@@ -54,7 +54,7 @@ class CustomFormTextField extends StatelessWidget {
       textInputAction: this.inputAction,
       onFieldSubmitted: this.onAction,
       onTap: this.onTap,
-      style: TextStyle(color: Colors.grey, fontSize: 12),
+      style: TextStyle(color: Colors.black, fontSize: 12),
       decoration: InputDecoration(
         suffixIcon: this.suffixIcon,
         floatingLabelBehavior: FloatingLabelBehavior.always,

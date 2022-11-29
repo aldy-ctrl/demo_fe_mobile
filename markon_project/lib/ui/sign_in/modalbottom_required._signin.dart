@@ -219,6 +219,7 @@ class _ModContainState extends State<ModContain> {
                                 onTap: () {
                                   showModalBottomSheet(
                                     context: context,
+                                    isDismissible: false,
                                     enableDrag: true,
                                     isScrollControlled: true,
                                     shape: RoundedRectangleBorder(

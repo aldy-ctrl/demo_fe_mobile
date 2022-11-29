@@ -20,9 +20,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           SignUpRequest req = SignUpRequest();
           req = event.body;
           await signup(req);
-          emit(SignUpSuccess(
-              succes: 'Succes Sign Up MarConn With Username: ' +
-                  req.fullName.toString()));
+          emit(SignUpSuccess());
         }
       } catch (e) {
         emit(SignUpFailed(error: 'ERORR Exception: ' + e.toString()));
@@ -31,5 +29,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   }
   dynamic signup(SignUpRequest req) async {
     result = await api.signup(req.toJson());
+    return result;
   }
 }

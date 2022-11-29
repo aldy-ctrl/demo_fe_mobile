@@ -52,7 +52,6 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
   bool obsecure1 = true;
   final key = GlobalKey<FormState>();
 
-
   @override
   void initState() {
     final FocusNode phone = FocusNode();
@@ -95,6 +94,7 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
         if (state is SignUpSuccess) {
           return showModalBottomSheet(
             isScrollControlled: true,
+            isDismissible: false,
             enableDrag: true,
             context: context,
             shape: RoundedRectangleBorder(
@@ -115,6 +115,7 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
       child: Form(
         key: key,
         child: Container(
+          //color: PutihRusak,
           padding: EdgeInsets.only(
               left: context.deviceWidth(0.0555555555555556),
               right: context.deviceWidth(0.0555555555555556),
@@ -154,7 +155,7 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
                   CustomFormTextField(
                     hint: 'FULL NAME',
                     controller: fullNameCo,
-                     maxLength: 30,
+                    maxLength: 30,
                     inputType: TextInputType.emailAddress,
                   ),
                   SizedBox(
@@ -325,7 +326,7 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
                 body.mobilePhone = phoneCo.text;
                 body.password = passwordCo.text;
                 body.retypePassword = retypePasswordCo.text;
-               
+
                 bloc(SignSubmitted(body));
               } else {
                 null;

@@ -1,3 +1,5 @@
+import 'package:markon_project/model/signup_model.dart';
+
 class SignUpState {}
 
 class IsSignUpState extends SignUpState {}
@@ -9,9 +11,9 @@ class InitState extends SignUpState {}
 class SignUpInProgress extends SignUpState {}
 
 class SignUpSuccess extends SignUpState {
-  final String? succes;
+  final SignUpResponseHeader ? sii;
 
-  SignUpSuccess({this.succes});
+  SignUpSuccess({this.sii});
 }
 
 class SignUpFailed extends SignUpState {

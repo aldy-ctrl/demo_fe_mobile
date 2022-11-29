@@ -77,6 +77,7 @@ class _PopUpVerifState extends State<Verifpop>
     return Form(
       key: key,
       child: Container(
+        color: PutihRusak,
         padding: EdgeInsets.only(
             left: context.deviceWidth(0.1222222222222222),
             right: context.deviceWidth(0.1222222222222222),
